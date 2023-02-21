@@ -8,8 +8,7 @@ const refs = {
   amount: document.querySelector('[name="amount"]'),
 }
 
-refs.body.style.backgroundColor = '#f7eff4';
-refs.form.addEventListener('click', onPromiseCreate);
+refs.form.addEventListener('submit', onPromiseCreate);
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
@@ -27,12 +26,11 @@ function createPromise(position, delay) {
 
 function onPromiseCreate(e) {
   e.preventDefault();
-
   let valueDelay = Number(refs.delay.value);
   let step = Number(refs.step.value);
   let amount = Number(refs.amount.value);
 
-  for (let i = 1; i <= amount; i += 1) {
+  for (let i = 0; i <= amount; i += 1) {
     let promiseDelay = valueDelay + step * i;
 
     createPromise(i, promiseDelay)
@@ -43,4 +41,5 @@ function onPromiseCreate(e) {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
   }
+  e.target.reset();
 }
